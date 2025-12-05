@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: toread_database
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: tododb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - toread_network
+
+  backend:
+    build: ./backend
+    container_name: toread_backend
+    ports:
+      - "3000:3000"
+    environment:
+      DB_HOST: db
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_NAME: tododb
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - toread_network
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    container_name: toread_frontend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - backend
+    networks:
+      - toread_network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+
+networks:
+  toread_network:
+    driver: bridge

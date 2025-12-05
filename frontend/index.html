@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Read - Lista Książek</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-pattern"></div>
+    
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1>To Read</h1>
+                <p class="subtitle">Twoja osobista biblioteka do przeczytania</p>
+            </div>
+        </header>
+
+        <div class="add-book-card">
+            <h2>Dodaj nową książkę</h2>
+            <div class="form-group">
+                <input type="text" id="titleInput" placeholder="Tytuł książki...">
+                <input type="text" id="authorInput" placeholder="Autor...">
+            </div>
+            <button class="btn-add" onclick="addBook()">
+                <span>+</span> Dodaj do listy
+            </button>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <span class="stat-number" id="totalBooks">0</span>
+                <span class="stat-label">Wszystkich książek</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" id="readBooks">0</span>
+                <span class="stat-label">Przeczytanych</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" id="toReadBooks">0</span>
+                <span class="stat-label">Do przeczytania</span>
+            </div>
+        </div>
+
+        <div id="bookList" class="book-list"></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
